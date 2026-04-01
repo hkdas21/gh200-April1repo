@@ -41,4 +41,4 @@ jobs:
       max-parallel: 3
     steps:
      - name: Print value
-       run: echo "Test job run successfull     
+       run: echo "Test job run successfull" 
