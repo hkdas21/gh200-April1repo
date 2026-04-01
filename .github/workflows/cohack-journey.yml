@@ -1,0 +1,10 @@
+name: CoHackJourney
+
+on: [ push ]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello from the GH_200 Session"
