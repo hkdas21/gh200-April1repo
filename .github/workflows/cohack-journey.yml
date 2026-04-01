@@ -2,8 +2,14 @@ name: CoHackJourney
 
 on: [ push ]
 
+env:                                   #Workflow-level
+  WORKSHOP_NAME: "GH-200 CoHack"
+  TRAINER: "Himanshu"
+
 jobs:
   setup:
+    env:
+      JOB_ENV: "Setup Phase"
     runs-on: ubuntu-latest
     steps:
       - name: Say Hello
@@ -27,6 +33,13 @@ jobs:
         run: |
           chmod +x ./greet.sh
           ./greet.sh
+      - name: Show Variables
+        env:
+          STEP_VAR: "Step-focused"   #Step-level
+        run: |
+          echo "Workflow: $WORKSHOP_NAME"
+          echo "Job: $JOB_ENV"
+          echo "Step: $STEP_VAR"
 
   build:
     runs-on: ubuntu-latest
@@ -58,3 +71,8 @@ jobs:
           name: build-report
       - name: Inspect Artifact
         run: cat build-report.txt
+      - name: Run Variables
+        run: |
+          echo "Workflow: $WORKSHOP_NAME"
+          echo "Job: $JOB_ENV"
+          echo "Step: $STEP_VAR"
