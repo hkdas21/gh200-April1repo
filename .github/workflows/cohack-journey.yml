@@ -11,6 +11,7 @@ jobs:
     env:
       JOB_ENV: "Setup Phase"
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Say Hello
         run: echo "Hello from the GH_200 Session"
@@ -20,65 +21,7 @@ jobs:
 
       - name: List files
         run: ls -la
-
-      - name: Generate ASCII Art
-        run: |
-          sudo apt-get install -y figlet
-          figlet "GH-200 CoHack"
-          echo "----------------------------"
-          figlet -f digital "GitHub Actions"
-          echo "✅ ASCII art generated!"
-
-      - name: Run Shell Script
-        run: |
-          chmod +x ./greet.sh
-          ./greet.sh
-      - name: Show Variables
-        env:
-          STEP_VAR: "Step-focused"   #Step-level
-        run: |
-          echo "Workflow: $WORKSHOP_NAME"
-          echo "Job: $JOB_ENV"
-          echo "Step: $STEP_VAR"
-      - name: Use Secret
-        env:
-          MY_SECRET: ${{ secrets.MY_API_KEY }}
-        run: |
-          echo "Secret set: ${{ secrets.MY_API_Key != '' }}"
-          echo "Try print : $MY_SECRET"
-        
-  build:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-      - name: 🔨 Simulate Build
-        run: |
-          echo "Building the application..."
-          echo "Build completed at $(date)" > build-report.txt
-          cat build-report.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-report
-          path: build-report.txt
-          retention-days: 5
-  
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: 🧪 Simulate Tests
-        run: echo "✅ All tests passed!"
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-report
-      - name: Inspect Artifact
-        run: cat build-report.txt
-      - name: Run Variables
-        run: |
-          echo "Workflow: $WORKSHOP_NAME"
-          echo "Job: $JOB_ENV"
-          echo "Step: $STEP_VAR"
+      - name: Tiemout step
+        timeout-minutes: 1
+        run: sleep 70
+ 
