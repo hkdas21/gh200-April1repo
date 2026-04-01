@@ -28,3 +28,21 @@ jobs:
           chmod +x ./greet.sh
           ./greet.sh
 
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      - name: 🔨 Simulate Build
+        run: |
+          echo "Building the application..."
+          echo "Build completed at $(date)" > build-report.txt
+          cat build-report.txt
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: 🧪 Simulate Tests
+        run: echo "✅ All tests passed!"
