@@ -23,5 +23,7 @@ jobs:
         run: ls -la
       - name: Tiemout step
         timeout-minutes: 1
-        run: sleep 70
+        run: |
+          sleep 30
+          echo "successful run"
  
